@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Login from '../Login.vue'
 import Home from '../components/Home.vue'
 import User from '../components/user/User.vue'
+import Rights from '../components/rights/Rights.vue'
+import Roles from '../components/rights/Roles.vue'
 
 Vue.use(VueRouter)
 
@@ -15,14 +17,18 @@ const routes = [
         path: '/home',
         component: Home,
         // 添加路由子规则
-        children: [{ path: '/users', component: User }, ],
+        children: [
+            { path: '/users', component: User },
+            { path: '/rights', component: Rights },
+            { path: '/roles', component: Roles },
+        ],
     }
 ]
 
 const router = new VueRouter({
-        routes
-    })
-    // 挂载路由导航守卫
+    routes
+});
+// 挂载路由导航守卫
 router.beforeEach((to, from, next) => {
     if (to.path === '/login') return next();
     // 获取token
@@ -30,5 +36,5 @@ router.beforeEach((to, from, next) => {
     if (!tokenStr) return next('/login');
     next();
 
-})
+});
 export default router
