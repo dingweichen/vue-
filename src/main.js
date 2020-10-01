@@ -6,10 +6,12 @@ import './plugins/element.js'
 import './assets/css/global.css'
 // 导入字体图标
 import './assets/fonts/iconfont.css'
-
+// 导入第三方树形table插件
+import TreeTable from 'vue-table-with-tree-grid'
 
 // 导入axios
 import axios from 'axios'
+import { Table, TabPane } from 'element-ui'
 // 配置请求根路径
 axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/';
 // axios拦截器：在前端发起的请求到达服务器前，进行预处理
@@ -22,6 +24,9 @@ axios.interceptors.request.use(config => {
 Vue.prototype.$http = axios
 
 Vue.config.productionTip = false
+
+// 全局注册组件
+Vue.component('tree-table', TreeTable)
 
 new Vue({
     router,
