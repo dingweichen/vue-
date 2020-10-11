@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import './plugins/element.js'
+// import './plugins/element.js'
 // 导入全局样式表
 import './assets/css/global.css'
 // 导入字体图标
@@ -10,9 +10,9 @@ import './assets/fonts/iconfont.css'
 import TreeTable from 'vue-table-with-tree-grid'
 // 导入第三方编辑器插件及其所用样式
 import VueQuillEditor from 'vue-quill-editor'
-import 'quill/dist/quill.core.css' // import styles
-import 'quill/dist/quill.snow.css' // for snow theme
-import 'quill/dist/quill.bubble.css' // for bubble theme
+
+// 导入第三方进度条加载及其所用样式
+import NProgress from 'nprogress'
 
 // 导入axios
 import axios from 'axios'
@@ -32,8 +32,16 @@ axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/';
 // axios拦截器：在前端发起的请求到达服务器前，进行预处理
 axios.interceptors.request.use(config => {
     console.log(config);
+    // 加载进度条
+    NProgress.start();
     // 给请求头添加Authorization字段，其值为token
     config.headers.Authorization = window.sessionStorage.getItem('token');
+    return config;
+});
+axios.interceptors.response.use(config => {
+    console.log(config);
+    // 关闭进度条
+    NProgress.done();
     return config;
 });
 // 注册一个名为dateFormat的全局过滤器，用于将日期数据格式化

@@ -68,8 +68,8 @@ export default {
     if (res.meta.status != 200) {
       return this.$message.error("获取数据报表失败");
     }
-    console.log("获取到的echarts数据为：");
-    console.log(res.data);
+    /* console.log("获取到的echarts数据为：");
+    console.log(res.data); */
     // 3.初始化echarts实例
     let myChart = echarts.init(document.getElementById("main"));
     // 4.指定图表的配置项和数据
